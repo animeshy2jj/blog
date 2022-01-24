@@ -8,6 +8,8 @@ import com.sb.blog.payload.SignUpDto;
 import com.sb.blog.repository.RoleRepository;
 import com.sb.blog.repository.UserRepository;
 import com.sb.blog.security.JWTTokenProvider;
+import io.swagger.annotations.Api;
+import io.swagger.annotations.ApiOperation;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,8 +26,9 @@ import org.springframework.web.bind.annotation.RestController;
 import javax.validation.Valid;
 import java.util.Collections;
 
+@Api(value = "Auth Controller exposes singin and signup api." )
 @RestController
-@RequestMapping("/api/auth/")
+@RequestMapping("/api/v1/auth/")
 public class AuthController {
 
     @Autowired
@@ -43,6 +46,7 @@ public class AuthController {
     @Autowired
     JWTTokenProvider tokenProvider;
 
+    @ApiOperation(value = "Rest Api to authenticate user.")
     @PostMapping("/signin")
     public ResponseEntity<JWTAuthResoponse> authenticateUser(@RequestBody LoginDto loginDto) {
 
@@ -53,6 +57,7 @@ public class AuthController {
         return ResponseEntity.ok(new JWTAuthResoponse(token));
     }
 
+    @ApiOperation(value = "Rest Api to let users register or signup")
     @PostMapping("/signup")
     public ResponseEntity<?> authenticateUser(@Valid @RequestBody SignUpDto signUpDto) {
 
